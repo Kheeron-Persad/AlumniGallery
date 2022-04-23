@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>{% block title %}{% endblock %}</title>
+  {% block stylesheet %}{% endblock %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+
+<body>
+  <header>
+    {% block logo %}{% endblock %}
+    {% block hello %}{% endblock %}
+    {% block buttons %}{% endblock %}
+    
+  </header>
+  <!--For Error Flash Message-->
+  {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <nav class="white black-text" style="padding: 10px">
+        <div class="nav-wrapper">
+            <ul class="flashes">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+      </nav>
+      {% endif %}
+    {% endwith %}
+  <!--Search Bar-->
+  <div class="search">
+    <input class="searchtxt" type="text" placeholder="Graduation Year">
+    <input class="searchtxt" type="text" placeholder="Programme">
+    <input class="searchtxt" type="text" placeholder="Faculty">
+    <input class="searchtxt" type="text" placeholder="Department">
+  </div>
+
+  <!--This makes it responsive-->
+  <!--It also holds the jinja syntax for the cards to be injected -->
+  <div class='flex-box'>{% block content %}{% endblock %}</div>
+  
+  <script src="script.js"></script>
+  <!--For Sign Up-->
+  <script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
+    <!--Compiled and minified JavaScript-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+
+<!--Title-->
+{% block title %}Alumni Gallery{% endblock %}
+
+<!--Style Sheet -->
+{% block stylesheet%}<link href="/static/gallery.css" rel="stylesheet" type="text/css">{% endblock %}
+
+<!--Logo-->
+{% block logo %}<a class="logo" href="/gallery"><img src="static/images/gallery.png" alt="logo"></a>{% endblock %}
+
+<!--Hello User-->
+{% block hello %}
+  {% if current_user.is_authenticated %}
+    <h3 class="hi"> Hi {{ current_user.firstname }}! </h3>
+  {% endif %}
+{% endblock %}
+
+<!--Buttons-->
+{% block buttons %}
+{% if current_user.is_authenticated %}
+  <button onclick="window.location.href='/logout'"class="button" class="logout">Logout</button>
+{% endif %}
+<button onclick="window.location.href='/job'"class="button">Job Board</button>
+<!-- <button onclick="window.location.href='/edit'"class="button">Edit</button> -->
+<button onclick="window.location.href='/delete/{{current_user.id}}'" class="button" href="/delete/{{current_user.id}}">Delete Account</button>
+{% endblock %}
+
+{{ super() }}
+
+<!--Render Cards-->
+{% block content %}
+  
+  {% for card in cards %}
+     <!--Profile card start-->
+    <div class="card">
+      <div class="card-image"></div>
+      <div class="profile-image">
+        <img src="static/images/icon.png" alt="">
+      </div>
+      <div class="card-content">
+        <h3>{{card.firstname}} {{card.lastname}}</h3>
+        <p>Graduation Year: <span style="color: mediumslateblue">{{card.year}}</span></p>
+        <p>Programme: <span style="color: mediumslateblue">{{card.programme}}</span></p>
+        <p>Faculty: <span style="color: mediumslateblue">{{card.faculty}}</span</p>
+        <p>Department: <span style="color: mediumslateblue">{{card.department}}</span></p>
+      </div>
+      <div class="icons">
+        <a href="https://www.instagram.com/{{card.instagram}}/" class="fab fa-instagram" target="_blank"></a>
+        <a href="https://www.reddit.com/user/{{card.reddit}}" class="fab fa-reddit" target="_blank"></a>
+        <a href="https://twitter.com/{{card.twitter}}" class="fab fa-twitter" target="_blank"></a>
+      </div>
+    </div>
+    <!--Profile card end-->
+  {% endfor %}
+{% endblock %}

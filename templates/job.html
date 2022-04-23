@@ -1,0 +1,54 @@
+{% extends "index.html" %}
+
+<!--Title-->
+{% block title %}Job Board{% endblock %}
+
+<!--Style Sheet -->
+{% block stylesheet%}<link href="/static/job.css" rel="stylesheet" type="text/css">{% endblock %}
+
+<!--Logo-->
+{% block logo %}<a class="logo" href="/job"><img src="static/images/job.png" alt="logo"></a>{% endblock %}
+
+<!--Hello User-->
+{% block hello %}
+  {% if current_user.is_authenticated %}
+    <h3 class="hi"> Hi {{ current_user.firstname }}! </h3>
+  {% endif %}
+{% endblock %}
+
+<!--Buttons-->
+{% block buttons %}
+{% if current_user.is_authenticated %}
+  <button onclick="window.location.href='/logout'"class="button" class="logout">Logout</button>
+{% endif %}
+<button onclick="window.location.href='/gallery'"class="button">Gallery</button>
+{% endblock %}
+
+{{ super() }}
+
+<!--Render Cards-->
+{% block content %}
+  
+  {% for job in jobs %}
+     <!--Profile card start (Should Use Jinja here)-->
+    <div class="card">
+      <div class="profile-image">
+        <img src="static/images/{{job.image}}" alt="">
+      </div>
+      <div class="card-content">
+        <h3>{{job.company}}</h3>
+        <p>{{job.title}}</p>
+        <p>{{job.time}}</p>
+        <p>{{job.salary}}</p>
+      </div>
+      <div class="card-details">
+        <h3>Details</h3>
+        <p>{{job.hours}}</p>
+        <p>{{job.location}}</p>
+        <p>{{job.skill}}</p>
+        <p>{{job.contact}}</p>
+      </div>
+    </div>
+    <!--Profile card end-->
+  {% endfor %}
+{% endblock %}
